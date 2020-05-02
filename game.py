@@ -217,6 +217,9 @@ while True:
         pen.write("GAME OVER!", align="center", font=font2)
         pen.goto(0,-40)
         pen.write("Score: {}".format(score),align="center",font=font)
+        pen.goto(0,-80)
+        font3=("Helvetica", 10, "normal")
+        pen.write("Click to quit game.", align="center", font=font3)
         wn.exitonclick()
 
 
