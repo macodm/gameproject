@@ -1,6 +1,7 @@
 import turtle
 import random
 import winsound
+import platform
 
 score = 0
 lives=3
@@ -35,7 +36,7 @@ burgers = []
 
 
 # add burgers
-for i in range(15):
+for i in range(8):
     burger = turtle.Turtle()
     burger.speed(0)
     burger.shape("burger.gif")
@@ -48,9 +49,8 @@ for i in range(15):
 # list of salads
 salads = []
 
-
 # add salads
-for i in range(15):
+for i in range(12):
     salad = turtle.Turtle()
     salad.speed(0)
     salad.shape("salad.gif")
@@ -71,7 +71,7 @@ for i in range(1):
     extralive.color("red")
     extralive.penup()
     extralive.goto(100, 250)
-    extralive.speed = random.randint(1, 2)
+    extralive.speed = random.randint(1,2)
     extralives.append(extralive)
 
 # create the pen to show score and lives
@@ -79,10 +79,10 @@ pen = turtle.Turtle()
 pen.hideturtle()
 pen.speed(0)
 pen.shape("square")
-pen.color("white")
+pen.color("black")
 pen.penup()
 pen.goto(0, 250)
-font = ("Helvetica", 20, "normal")
+font = ("Helvetica", 25, "normal")
 pen.clear()
 pen.write("Score: {}   Lives: {}".format(score, lives), align="center", font=font)
 
@@ -98,10 +98,30 @@ def go_right():
     player.shape("simpr.gif")
 
 
+
 # keyboard binding (listening to keyboard)
 wn.listen()
 wn.onkeypress(go_left, "Left")
 wn.onkeypress(go_right, "Right")
+
+def play_sound(sound_file, time = 0):
+    # windows
+    if platform.system() == "Windows":
+        winsound.PlaySound(sound_file, winsound.SND_ASYNC)
+    # linux
+    elif platform.system() == "Linux":
+        os.system("aplay -q {}&".format(sound_file))
+    # mac
+    else:
+        os.system("afplay {}&".format(sound_file))
+
+    # repeat sound
+    if time > 0:
+        turtle.ontimer(lambda: play_sound(sound_file, time), t=int(time * 1000))
+
+
+# play bg music
+play_sound("africa.mp3", 294)
 
 # main game loop
 while True:
@@ -179,7 +199,7 @@ while True:
         if y < -300:
             # random position after off-screen
             x = random.randint(-380, 380)
-            y = random.randint(300, 400)
+            y = random.randint(1000, 2000)
             extralive.goto(x, y)
 
         # check for collision
@@ -187,11 +207,22 @@ while True:
             winsound.PlaySound("life.wav", winsound.SND_ASYNC)
             # random position after collision
             x = random.randint(-380, 380)
-            y = random.randint(300, 400)
+            y = random.randint(1000, 2000)
             extralive.goto(x, y)
-            score -= 0
             lives += 1
             pen.clear()
             pen.write("Score: {} Lives: {}".format(score, lives), align="center", font=font)
+
+    # game over screen
+    if lives <= 0:
+        winsound.PlaySound("over.mp3", winsound.SND_ASYNC)
+        pen.clear()
+        pen.goto(0,0)
+        font2= ("Helvetica", 50, "bold")
+        pen.write("GAME OVER!", align="center", font=font2)
+        pen.goto(0,-40)
+        pen.write("Score: {}".format(score),align="center",font=font)
+        wn.exitonclick()
+
 
 wn.mainloop()
