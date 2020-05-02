@@ -115,19 +115,15 @@ def play_sound(sound_file, time = 0):
     else:
         os.system("afplay {}&".format(sound_file))
 
-    # repeat sound
-    if time > 0:
-        turtle.ontimer(lambda: play_sound(sound_file, time), t=int(time * 1000))
 
-
-# play bg music
-play_sound("africa.mp3", 294)
+play_sound("africa.wav", 294)
 
 # main game loop
 while True:
 
     # update screen
     wn.update()
+
 
     # player movement
     if player.direction == "left":
@@ -155,7 +151,7 @@ while True:
 
         # check for collision
         if burger.distance(player) < 40:
-            winsound.PlaySound("coin.wav", winsound.SND_ASYNC)
+            play_sound("coin.wav")
             # random position after collision
             x = random.randint(-380, 380)
             y = random.randint(300, 400)
@@ -180,12 +176,11 @@ while True:
 
         # check for collision
         if salad.distance(player) < 40:
-            winsound.PlaySound("fail.wav", winsound.SND_ASYNC)
+            play_sound("fail.wav")
             # random position after collision
             x = random.randint(-380, 380)
             y = random.randint(300, 400)
             salad.goto(x, y)
-            score -= 10
             lives -= 1
             pen.clear()
             pen.write("Score: {} Lives: {}".format(score, lives), align="center", font=font)
@@ -204,7 +199,7 @@ while True:
 
         # check for collision
         if extralive.distance(player) < 40:
-            winsound.PlaySound("life.wav", winsound.SND_ASYNC)
+            play_sound("life.wav")
             # random position after collision
             x = random.randint(-380, 380)
             y = random.randint(1000, 2000)
@@ -215,7 +210,7 @@ while True:
 
     # game over screen
     if lives <= 0:
-        winsound.PlaySound("over.mp3", winsound.SND_ASYNC)
+        play_sound("over.wav")
         pen.clear()
         pen.goto(0,0)
         font2= ("Helvetica", 50, "bold")
