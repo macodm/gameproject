@@ -249,6 +249,7 @@ def go_menu_select():
     elif pos_selected == 1:
         wn.clear()
         wn.title("Cloudy with a Chance of Burgers!")
+        wn.setup(width=800, height=600)
         wn.bgpic("cloudy.gif")
         wn.tracer(0)
         pen = turtle.Turtle()
@@ -289,6 +290,7 @@ def show_menu():
 
     play_sound("africa.wav", 294)
     wn.title("Cloudy with a Chance of Burgers!")
+    wn.setup(width=800,height=600)
     wn.bgpic("cloudy.gif")
     pen = turtle.Turtle()
     pen.hideturtle()
