@@ -48,7 +48,7 @@ def game():
         burger.shape("burger.gif")
         burger.color("blue")
         burger.penup()
-        burger.goto(-100, 250)
+        burger.goto(800, 0)
         burger.speed = random.randint(1, 2)
         burgers.append(burger)
 
@@ -62,7 +62,7 @@ def game():
         salad.shape("salad.gif")
         salad.color("red")
         salad.penup()
-        salad.goto(100, 250)
+        salad.goto(800, 0)
         salad.speed = random.randint(1, 2)
         salads.append(salad)
 
@@ -76,7 +76,7 @@ def game():
         extralive.shape("heart.gif")
         extralive.color("red")
         extralive.penup()
-        extralive.goto(100, 250)
+        extralive.goto(800, 0)
         extralive.speed = random.randint(1, 2)
         extralives.append(extralive)
 
@@ -247,7 +247,6 @@ def go_menu_select():
         wn.clear()
         wn.title("Cloudy with a Chance of Burgers!")
         wn.bgpic("cloudy.gif")
-        wn.setup(width=800, height=600)
         wn.tracer(0)
         pen = turtle.Turtle()
         pen.hideturtle()
