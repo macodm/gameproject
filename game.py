@@ -17,7 +17,6 @@ def game():
     # create the main window
     wn = turtle.Screen()
     wn.title("Cloudy with a Chance of Burgers!")
-    wn.bgcolor("green")
     wn.bgpic("skyback.gif")
     wn.setup(width=800, height=600)
     wn.tracer(0)
@@ -224,10 +223,6 @@ def game():
             font3 = ("Helvetica", 10, "normal")
             pen.write("Click to quit game.", align="center", font=font3)
             wn.exitonclick()
-
-
-
-
 
 
 menu_items = ["Play Game", "Help", "Quit"]
