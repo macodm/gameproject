@@ -194,7 +194,7 @@ def game():
             if y < -300:
                 # random position after off-screen
                 x = random.randint(-380, 380)
-                y = random.randint(1000, 2000)
+                y = random.randint(1000, 2500)
                 extralive.goto(x, y)
 
             # check for collision
@@ -224,6 +224,8 @@ def game():
             font3 = ("Helvetica", 10, "normal")
             pen.write("Click to quit game.", align="center", font=font3)
             wn.exitonclick()
+
+
 
 
 
@@ -290,8 +292,8 @@ def show_menu():
 
     play_sound("africa.wav", 294)
     wn.title("Cloudy with a Chance of Burgers!")
-    wn.setup(width=800,height=600)
-    wn.bgpic("cloudy.gif")
+    wn.setup(width=800, height=600)
+    wn.bgpic("comics.gif")
     pen = turtle.Turtle()
     pen.hideturtle()
     pen.shape("square")
@@ -327,6 +329,7 @@ wn.register_shape("salad.gif")
 wn.register_shape("simpr.gif")
 wn.register_shape("cloudy.gif")
 wn.register_shape("heart.gif")
+wn.register_shape("comics.gif")
 
 # this is the heart to go through the menu
 select = turtle.Turtle()
@@ -340,5 +343,4 @@ select.goto(-50, 200)
 
 while True:
     wn.update()
-    wn.delay(30)
     select.goto(-150, 40 - pos_selected * 100)
