@@ -251,47 +251,18 @@ def go_menu_select():
         # new game
         game()
     elif pos_selected == 1:
-
-
-        menus= ["Play Game", "Quit"]
-        wn.onkeypress(go_menu_up, "Up")
-        wn.onkeypress(go_menu_down, "Down")
-        wn.onkeypress(go_menu_select, "Return")
-        wn.listen()
-        wn.tracer(0)
-
         wn.clear()
-        wn.title("Cloudy with a Chance of Burgers!")
-        wn.setup(width=800, height=600)
-        wn.bgpic("comics.gif")
-
-        pen = turtle.Turtle()
-        pen.speed(0)
-        pen.shape("square")
-        pen.color("black")
-        pen.penup()
-        pen.goto(-400, 0)
-
-
-
-        for i in range(len(menus)):
-            text = menus[i]
-            pen.goto(0, -200 - i * 50)
-            font2= ("Arial", 20, "bold")
-            pen.write(text, align="center", font=font2)
-
         wn.title("Cloudy with a Chance of Burgers!")
         wn.setup(width=800, height=600)
         wn.bgpic("cloudy.gif")
         wn.tracer(0)
         pen = turtle.Turtle()
+        pen.hideturtle()
         pen.speed(0)
         pen.shape("square")
         pen.color("black")
         pen.penup()
         pen.goto(0, 0)
-        
-
         font = ("Helvetica", 20, "normal")
         font2 = ("Helvetica", 30, "bold")
         pen.clear()
@@ -301,11 +272,6 @@ def go_menu_select():
         pen.goto(0,-100)
         pen.write("Catch hearts to get extra lives.", align="center", font=font)
         wn.exitonclick()
-
-        if pos_selected ==0:
-            game()
-        elif pos_selected ==1:
-            turtle.Screen().bye()
 
 
     elif pos_selected == 2:
@@ -343,6 +309,7 @@ def show_menu():
         text = menu_items[i]
         pen.goto(0, 20 - i * 100)
         pen.write(text, align="center", font=font)
+
 
 
 score = 0
