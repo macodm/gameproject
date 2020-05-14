@@ -1,8 +1,13 @@
-import turtle
 import random
 import winsound
 import platform
+import pygame
+import turtle
 
+# use pygame to play the main music theme
+pygame.init()
+pygame.mixer.music.load("africa.wav")
+pygame.mixer.music.play(loops=-1)
 
 # moved the game inside this function
 def game():
@@ -105,23 +110,9 @@ def game():
     wn.onkeypress(go_left, "Left")
     wn.onkeypress(go_right, "Right")
 
-    def play_sound(sound_file, time=0):
-        # windows
-        if platform.system() == "Windows":
-            winsound.PlaySound(sound_file, winsound.SND_ASYNC)
-        # linux
-        elif platform.system() == "Linux":
-            os.system("aplay -q {}&".format(sound_file))
-        # mac
-        else:
-            os.system("afplay {}&".format(sound_file))
-
-
     # main game loop
     while True:
-
         # update screen
-
         wn.update()
         wn.delay(100)
 
@@ -232,150 +223,171 @@ def game():
             wn.exitonclick()
 
 
-menu_items = ["Play Game", "Help", "Quit"]
+menu_items = []
 pos_selected = 0 # what is the item selected
+
+
+def play_sound(sound_file, time=0):
+    # linux
+    if platform.system() == "Linux":
+        os.system("aplay -q {}&".format(sound_file))
+    # windows
+    elif platform.system() == "Windows":
+        winsound.PlaySound(sound_file, winsound.SND_ASYNC)
+    # mac
+    else:
+        os.system("afplay {}&".format(sound_file))
+
 
 def go_menu_up():
     global pos_selected
     pos_selected = (pos_selected - 1 ) % len(menu_items)
 
+
 def go_menu_down():
     global pos_selected
     pos_selected = (pos_selected + 1 ) % len(menu_items)
+
 
 # this is where you identify what has been pressed
 def go_menu_select():
     global pos_selected
 
+    if len(menu_items) == 1:
+        # we are in the help
+        show_main_menu()
+        return
     if pos_selected == 0 :
-        # new game
         game()
     elif pos_selected == 1:
-
-
-        menus= ["Play Game", "Quit"]
-        wn.onkeypress(go_menu_up, "Up")
-        wn.onkeypress(go_menu_down, "Down")
-        wn.onkeypress(go_menu_select, "Return")
-        wn.listen()
-        wn.tracer(0)
-
-        wn.clear()
-        wn.title("Cloudy with a Chance of Burgers!")
-        wn.setup(width=800, height=600)
-        wn.bgpic("comics.gif")
-
-        pen = turtle.Turtle()
-        pen.speed(0)
-        pen.shape("square")
-        pen.color("black")
-        pen.penup()
-        pen.goto(-400, 0)
-
-
-
-        for i in range(len(menus)):
-            text = menus[i]
-            pen.goto(0, -200 - i * 50)
-            font2= ("Arial", 20, "bold")
-            pen.write(text, align="center", font=font2)
-
-        wn.title("Cloudy with a Chance of Burgers!")
-        wn.setup(width=800, height=600)
-        wn.bgpic("cloudy.gif")
-        wn.tracer(0)
-        pen = turtle.Turtle()
-        pen.speed(0)
-        pen.shape("square")
-        pen.color("black")
-        pen.penup()
-        pen.goto(0, 0)
-        
-
-        font = ("Helvetica", 20, "normal")
-        font2 = ("Helvetica", 30, "bold")
-        pen.clear()
-        pen.write("Instructions", align="center", font=font2)
-        pen.goto(0,-50)
-        pen.write("Eat hamburgers and avoid salads.", align="center", font=font)
-        pen.goto(0,-100)
-        pen.write("Catch hearts to get extra lives.", align="center", font=font)
-        wn.exitonclick()
-
-        if pos_selected ==0:
-            game()
-        elif pos_selected ==1:
-            turtle.Screen().bye()
-
-
+        show_help_menu()
     elif pos_selected == 2:
-        # in my case exit
+        show_credits()
+    elif pos_selected == 3:
         turtle.Screen().bye()
 
-# this is the menu, I have used the heat icon you have :)
-def show_menu():
 
-    def play_sound(sound_file, time=0):
-        # windows
-        if platform.system() == "Windows":
-            winsound.PlaySound(sound_file, winsound.SND_ASYNC)
-        # linux
-        elif platform.system() == "Linux":
-            os.system("aplay -q {}&".format(sound_file))
-        # mac
-        else:
-            os.system("afplay {}&".format(sound_file))
+# this is the Main menu
+def show_main_menu():
+    global menu_items
+    menu_items = ["Play Game", "Help", "Credits", "Quit"]
 
-    play_sound("africa.wav", 294)
-    wn.title("Cloudy with a Chance of Burgers!")
-    wn.setup(width=800, height=600)
-    wn.bgpic("comics.gif")
-    pen = turtle.Turtle()
-    pen.hideturtle()
-    pen.shape("square")
-    pen.color("black")
-    pen.penup()
-    pen.goto(0, 0)
-    font = ("Arial", 30, "bold")
     pen.clear()
-
     for i in range(len(menu_items)):
         text = menu_items[i]
         pen.goto(0, 20 - i * 100)
         pen.write(text, align="center", font=font)
 
 
+# this is the help menu
+def show_help_menu():
+    global menu_items
+    menu_items = ["Back", ]
+    wn.listen()
+    wn.tracer(0)
+
+    pen.clear()
+
+    for i in range(len(menu_items)):
+        text = menu_items[i]
+        pen.goto(0, -200 - i * 50)
+        font2 = ("Arial", 20, "bold")
+        pen.write(text, align="center", font=font2)
+
+    pen.goto(0, 0)
+
+    font = ("Helvetica", 20, "normal")
+    font2 = ("Helvetica", 30, "bold")
+    # pen.clear()
+    pen.write("Instructions", align="center", font=font2)
+    pen.goto(0, -50)
+    pen.write("Eat hamburgers and avoid salads.", align="center", font=font)
+    pen.goto(0, -100)
+    pen.write("Catch hearts to get extra lives.", align="center", font=font)
+    select.goto(-80, -180)
+
+# credits
+
+def show_credits():
+    global menu_items
+    menu_items = ["Back", ]
+    wn.listen()
+    wn.tracer(0)
+
+    pen.clear()
+
+    for i in range(len(menu_items)):
+        text = menu_items[i]
+        pen.goto(0, -200 - i * 50)
+        font2 = ("Arial", 20, "bold")
+        pen.write(text, align="center", font=font2)
+
+    pen.goto(0, 0)
+
+    font = ("Helvetica", 20, "normal")
+    font2 = ("Helvetica", 30, "bold")
+    # pen.clear()
+    pen.write("Credits", align="center", font=font2)
+    pen.goto(0, -50)
+    pen.write("Project manager: Sandra Forro", align="center", font=font)
+    pen.goto(0, -100)
+    pen.write("Lead designer: Manuel Afif", align="center", font=font)
+    select.goto(-80, -180)
+
+# this is the initial setup of the screen, we use the 3 global variables: wn, pen, select
+def initial_setup():
+    # this part is the initial setup of the window, pen and select token
+    wn.onkeypress(go_menu_up, "Up")
+    wn.onkeypress(go_menu_down, "Down")
+    wn.onkeypress(go_menu_select, "Return")
+    wn.listen()
+    wn.tracer(0)
+
+    wn.register_shape("simp.gif")
+    wn.register_shape("burger.gif")
+    wn.register_shape("salad.gif")
+    wn.register_shape("simpr.gif")
+    wn.register_shape("cloudy.gif")
+    wn.register_shape("heart.gif")
+    wn.register_shape("comics.gif")
+
+    # play_sound("africa.wav", 294)
+    wn.title("Cloudy with a Chance of Burgers!")
+    wn.setup(width=800, height=600)
+    wn.bgpic("comics.gif")
+
+    pen.hideturtle()
+    pen.shape("square")
+    pen.color("black")
+    pen.penup()
+    pen.goto(0, 0)
+
+    # this is the burger to go through the menu
+    select.speed(0)
+    select.shape("burger.gif")
+    select.color('red')
+    select.penup()
+    select.goto(-50, 200)
+
+
+# this is where the program starts
 score = 0
-lives=3
+lives = 3
 
-# show the menu
+# you define here the 3 main things: the window, the pen and the select.
 wn = turtle.Screen()
-show_menu()
-
-wn.onkeypress(go_menu_up, "Up")
-wn.onkeypress(go_menu_down, "Down")
-wn.onkeypress(go_menu_select, "Return")
-wn.listen()
-wn.tracer(0)
-
-wn.register_shape("simp.gif")
-wn.register_shape("burger.gif")
-wn.register_shape("salad.gif")
-wn.register_shape("simpr.gif")
-wn.register_shape("cloudy.gif")
-wn.register_shape("heart.gif")
-wn.register_shape("comics.gif")
-
-# this is the heart to go through the menu
+pen = turtle.Turtle()
 select = turtle.Turtle()
-select.speed(0)
-select.shape("burger.gif")
-select.color('red')
-select.penup()
-select.goto(-50, 200)
+font = ("Arial", 30, "bold")
 
+# call the initial setup of the screen, I have made it into a function
+initial_setup()
 
+# show the main menu
+show_main_menu()
 
 while True:
     wn.update()
-    select.goto(-150, 40 - pos_selected * 100)
+    # in help there is no need to change the burger position
+    if len(menu_items) > 1:
+        select.goto(-150, 40 - pos_selected * 100)
