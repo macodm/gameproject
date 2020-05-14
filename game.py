@@ -329,11 +329,11 @@ def show_credits():
     # pen.clear()
     pen.write("Credits", align="center", font=font2)
     pen.goto(0, -50)
-    pen.write("Project manager: Sandra Forro", align="center", font=font)
+    pen.write("Project Manager: Sandra Forro", align="center", font=font)
     pen.goto(0, -100)
-    pen.write("Lead designer: Manuel Afif", align="center", font=font)
+    pen.write("Lead Designer: Manuel Afif", align="center", font=font)
     pen.goto(0, -150)
-    pen.write("Project Consultant: Bogdan Ratiu", align="center", font=font)
+    pen.write("Project Advisor: Bogdan Ratiu", align="center", font=font)
     select.goto(-80, -200)
 
 # this is the initial setup of the screen, we use the 3 global variables: wn, pen, select
