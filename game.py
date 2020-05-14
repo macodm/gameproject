@@ -53,7 +53,7 @@ def game():
         burger.color("blue")
         burger.penup()
         burger.goto(800, 0)
-        burger.speed = random.randint(1, 2)
+        burger.speed = random.uniform(1, 1.5)
         burgers.append(burger)
 
     # list of salads
@@ -67,7 +67,7 @@ def game():
         salad.color("red")
         salad.penup()
         salad.goto(800, 0)
-        salad.speed = random.randint(1, 2)
+        salad.speed = random.uniform(1,1.5)
         salads.append(salad)
 
     # list of extra lives
@@ -81,7 +81,7 @@ def game():
         extralive.color("red")
         extralive.penup()
         extralive.goto(800, 0)
-        extralive.speed = random.randint(1, 2)
+        extralive.speed = random.uniform(1, 1.5)
         extralives.append(extralive)
 
     # create the pen to show score and lives
@@ -119,12 +119,12 @@ def game():
         # player movement
         if player.direction == "left":
             x = player.xcor()
-            x -= 3
+            x -= 1.7
             player.setx(x)
 
         if player.direction == "right":
             x = player.xcor()
-            x += 3
+            x += 1.7
             player.setx(x)
 
         # keep player in screen
