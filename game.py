@@ -318,7 +318,7 @@ def show_credits():
 
     for i in range(len(menu_items)):
         text = menu_items[i]
-        pen.goto(0, -200 - i * 50)
+        pen.goto(0, -220 - i * 50)
         font2 = ("Arial", 20, "bold")
         pen.write(text, align="center", font=font2)
 
@@ -332,7 +332,9 @@ def show_credits():
     pen.write("Project manager: Sandra Forro", align="center", font=font)
     pen.goto(0, -100)
     pen.write("Lead designer: Manuel Afif", align="center", font=font)
-    select.goto(-80, -180)
+    pen.goto(0, -150)
+    pen.write("Project Consultant: Bogdan Ratiu", align="center", font=font)
+    select.goto(-80, -200)
 
 # this is the initial setup of the screen, we use the 3 global variables: wn, pen, select
 def initial_setup():
